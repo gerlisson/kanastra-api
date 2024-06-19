@@ -1,0 +1,32 @@
+version: "3.1"
+
+services:
+  db:
+    build: docker/mysql
+    restart: always
+    env_file:
+      - docker/mysql/mysql.env
+    ports:
+      - "3306:3306"
+    volumes:
+      - "${DATABASE}:/var/lib/mysql"
+    networks:
+      - kanastranetwork
+
+  api:
+    build: 
+      context: docker/php-apache
+      args:
+        AMBIENTE: ${AMBIENTE}
+    ports:
+      - "80:80"
+      # - "443:443"
+    restart: always
+    volumes:
+      - "./api/:/var/www/html"
+      - "${STORAGE}:/var/storage"
+    networks:
+      - kanastranetwork
+
+networks:
+  kanastranetwork:
