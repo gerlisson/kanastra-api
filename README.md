@@ -38,6 +38,14 @@ cd kanastra-api
 
 ### Passo 2: Configurar o Docker
 
+Configure as variaveis de ambiente do caminho dos volumes `.env`:
+
+```.env
+AMBIENTE=dev
+STORAGE=/storage
+DATABASE=/database
+```
+
 Certifique-se de que você tem o Docker e o Docker Compose instalados em sua máquina. Em seguida, crie e inicie os containers Docker:
 
 ```bash
@@ -55,9 +63,10 @@ composer install
 
 ### Passo 4: Configurar o Banco de Dados
 
-Copie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente conforme necessário. Em seguida, execute as migrações para criar as tabelas no banco de dados:
+Copie o arquivo `/api/.env.example` para `/api/.env` e configure as variáveis de ambiente conforme necessário. Em seguida, execute as migrações para criar as tabelas no banco de dados:
 
 ```bash
+cd api
 php artisan migrate
 ```
 
