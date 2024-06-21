@@ -4,6 +4,8 @@
 Este projeto é um desafio da tech squad da Kanastra. 
 Api em Laravel que permite o upload e processamento de arquivos CSV contendo informações de boletos. Os dados são armazenados em um banco de dados, e o nome do arquivo CSV é registrado em uma tabela histórica.
 
+[Documentação API Postman](https://www.postman.com/gold-crater-626729/workspace/gerlissonpaulinokanastratest/request/7899690-b5002678-8084-46af-a6f0-6e66664097d8)
+
 ## Funcionalidades
 
 - Upload de arquivos CSV
