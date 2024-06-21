@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('boletos', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('historico_id')->references('id')->on('historicos');;
+
             $table->string('name');
             $table->string('governmentId');
             $table->string('email');
@@ -20,6 +23,9 @@ return new class extends Migration
             $table->date('debtDueDate');
             $table->uuid('debtId');
             $table->timestamps();
+
+            $table->index(['historico_id']);
+
         });
     }
 

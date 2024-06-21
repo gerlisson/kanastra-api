@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Boleto;
+use App\Models\Historico;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
@@ -28,6 +29,10 @@ class BoletoControllerIntegrationTest extends TestCase
         $response->assertStatus(200);
         $response->assertJson([
             'message' => 'Boletos inseridos com sucesso!',
+        ]);
+
+        $this->assertDatabaseHas('historicos', [
+            'filename' => 'uploads/' . $file->getClientOriginalName(),
         ]);
     }
 }

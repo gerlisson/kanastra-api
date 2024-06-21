@@ -15,4 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('historico', [\App\Http\Controllers\Api\HistoricoController::class, 'index']);
+
+Route::get('boletos', [\App\Http\Controllers\Api\BoletoController::class, 'index']);
 Route::post('upload-csv', [\App\Http\Controllers\Api\BoletoController::class, 'uploadCsv']);

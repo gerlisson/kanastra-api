@@ -17,7 +17,7 @@ class HistoricoFactory extends Factory
     public function definition(): array
     {
         return [
-            'filename' => $this->faker->sentence
+            'title' => $this->faker->sentence
         ];
     }
 }

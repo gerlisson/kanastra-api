@@ -12,6 +12,7 @@ class Boleto extends Model
     protected $table = 'boletos';
 
     protected $fillable = [
+        'historico_id',
         'name',
         'governmentId',
         'email',

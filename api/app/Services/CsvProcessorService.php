@@ -5,18 +5,28 @@ namespace App\Services;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Spatie\SimpleExcel\SimpleExcelReader;
+use App\Models\Historico;
 
 class CsvProcessorService
 {
+    private $historico;
+
+    public function __construct(Historico $historico)
+    {
+        $this->historico = $historico;
+    }
+
     public function process(string $filePath, int $batchSize)
     {
         $dataBatch = [];
         $startTime = microtime(true);
         $firstRow = true;
 
+        $idFilenameHistorico = $this->saveFileName($filePath);
+
         SimpleExcelReader::create(Storage::path($filePath))
             ->getRows()
-            ->each(function (array $row) use (&$dataBatch, &$firstRow, $batchSize) {
+            ->each(function (array $row) use (&$dataBatch, &$firstRow, $batchSize, $idFilenameHistorico) {
 
                 // Se for a primeira linha, assumimos que são os cabeçalhos
                 if ($firstRow) {
@@ -26,6 +36,7 @@ class CsvProcessorService
                 }
 
                 $dataBatch[] = [
+                    'historico_id' => $idFilenameHistorico,
                     'name' => $row['name'],
                     'governmentId' => $row['governmentId'],
                     'email' => $row['email'],
@@ -66,5 +77,16 @@ class CsvProcessorService
     private function insertBatch(array $dataBatch)
     {
         DB::table('boletos')->insert($dataBatch);
+    }
+
+    private function saveFileName($filePath)
+    {
+        $historico = $this->historico->create(['filename' => $filePath]);
+        return $historico->id;
+    }
+    
+    private function getBoletos()
+    {
+        
     }
 }

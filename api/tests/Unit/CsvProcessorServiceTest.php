@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
+use App\Models\Historico;
 
 class CsvProcessorServiceTest extends TestCase
 {
@@ -25,7 +26,8 @@ class CsvProcessorServiceTest extends TestCase
         Storage::disk('local')->put($filePath, $fileContent);
 
         // Criar uma instância do serviço CsvProcessorService
-        $service = new CsvProcessorService();
+        $historico = new Historico();
+        $service = new CsvProcessorService($historico);
         
         $batchSize = 1000;
         
@@ -36,6 +38,6 @@ class CsvProcessorServiceTest extends TestCase
 
         $this->assertGreaterThanOrEqual(0, $executionTime, 'O tempo de execução deve ser um número positivo.');
 
-        $this->assertLessThan(60, $endTime - $startTime, "O tempo de execução foi maior que 60 segundos: " . ($endTime - $startTime));
+        $this->assertLessThan(60, $endTime - $startTime, "O tempo de execução foi menor que 60 segundos: " . ($endTime - $startTime));
     }
 }
