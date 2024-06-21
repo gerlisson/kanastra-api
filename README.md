@@ -140,3 +140,5 @@ sudo nano /etc/hosts
 ```/etc/hosts
 127.0.0.1 front.localhost
 ```
+
+Acesse a aplicação frontend `http://front.localhost/`
